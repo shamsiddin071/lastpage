@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Last Page</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#3a2f22;--paper:#e8dcc0;--gold:#c9a24a;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(ellipse at 50% 40%,#2a2218 0,#121722 45%,#0b0f17 80%);color:#cfc3a8;font:400 19px/1.6 'EB Garamond',Georgia,serif;overflow:hidden;touch-action:manipulation}
+#pt{position:fixed;inset:0;pointer-events:none}
+.v{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:safe center;gap:16px;padding:22px;text-align:center;overflow-y:auto}
+.v.on{display:flex}.v>*{flex-shrink:0}
+button{font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid #cfc3a855;padding:6px 4px;cursor:pointer;min-width:150px;letter-spacing:.14em}
+button:hover,button:focus-visible{color:var(--gold);outline:none}
+button:disabled{opacity:.25;pointer-events:none}
+.bk{width:min(80vw,320px);aspect-ratio:3/4;background:linear-gradient(135deg,#2b1d17,#150e0b);border:1px solid #8b6b3a;border-radius:4px 12px 12px 4px;box-shadow:inset 8px 0 14px #0008,0 20px 50px #000b;color:var(--gold);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;cursor:pointer;transform-origin:left;animation:turn 1s ease-out}
+.bk h1{margin:0;font:italic 400 46px 'EB Garamond',Georgia,serif}
+.bk div,.bk small{letter-spacing:.3em;text-transform:uppercase;font-size:14px}
+.pg{width:min(88vw,420px);min-height:58vh;background:linear-gradient(90deg,#d3c4a0,var(--paper) 9%);color:var(--ink);padding:30px 28px 20px;text-align:left;border-radius:2px 6px 6px 2px;box-shadow:0 20px 50px #000b,inset 10px 0 14px #0003;transform-origin:left;animation:turn .9s ease-out;display:flex;flex-direction:column;gap:14px}
+.pg small{letter-spacing:.25em;opacity:.6;font-size:14px}
+.pg h3{margin:0;font:italic 400 27px 'EB Garamond',Georgia,serif}
+.pg p{margin:0;font-size:20px;animation:in 2.6s}
+.pg p.e{font-style:italic;font-size:28px;margin:auto 0}
+.nv{display:flex;justify-content:space-between;align-items:center;margin-top:auto;font-size:15px;opacity:.85}
+.nv button{min-width:50px;font-size:26px;border:0;color:var(--ink)}
+@keyframes turn{from{transform:perspective(1000px) rotateY(-75deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes in{from{opacity:0}to{opacity:1}}
+#m{position:fixed;right:12px;top:calc(env(safe-area-inset-top,0px) + 8px);min-width:0;border:0;z-index:9}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important}}
+</style></head><body>
+<canvas id="pt"></canvas>
+<button id="m" onclick="mus()" aria-label="music">♪</button>
+<div class="v on" id="L"><button onclick="go('en')">ENGLISH</button><button onclick="go('de')">DEUTSCH</button><button onclick="go('tr')">TÜRKÇE</button></div>
+<div class="v" id="b"></div>
+<script>
+/* ===== PUT YOUR MUSIC FILE PATH OR LINK BETWEEN THE QUOTES BELOW (e.g. 'music.mp3') ===== */
+const MUSIC='music.m4a';
+/* ================================================================================== */
+const T={
+en:{sub:'The last page',op:'Tap to open',t:['September · Glances','Friday · Ice Cream','Golden','Deserving','Wishes'],
+p:['Ezoza, writing these words is not easy for me, but I did not think it right to keep them locked inside.',
+'You gave me so many unforgettable memories. They hold a precious place in my life. I have met many people, but the days I spent with you were different. We were such a good pair. Our characters were so alike that sometimes we understood each other without saying a word.',
+'You were truly a golden girl, Ezoza. Your kindness, your sincerity, the way you can be happy about the smallest things: all of it sets you apart. Your eyes, your habits, your way of speaking, your voice, I will never forget them. Even after years have passed, they will stay in the depths of my heart.',
+'You deserve someone even better than me. Whoever becomes your life partner will have won the greatest prize in life. I have no doubt about that.',
+'In your studies and on your path through life, I wish you all the best from my heart. May your dreams come true and your heart always be full of joy. You deserve it.'],
+end:'Thank you, for everything.',thx:'Thank you'},
+de:{sub:'Die letzte Seite',op:'Zum Öffnen tippen',t:['September · Blicke','Freitag · Eis','Golden','Verdient','Wünsche'],
+p:['Ezoza, diese Worte zu schreiben fällt mir nicht leicht, aber ich fand es nicht richtig, sie in mir zu verschließen.',
+'Du hast mir so viele unvergessliche Erinnerungen geschenkt. Sie haben einen kostbaren Platz in meinem Leben. Ich habe viele Menschen getroffen, aber die Tage mit dir waren anders. Wir waren ein so gutes Paar. Unsere Charaktere waren einander so ähnlich, dass wir uns manchmal ohne ein Wort verstanden.',
+'Du warst wirklich ein goldenes Mädchen, Ezoza. Deine Güte, deine Aufrichtigkeit, wie du dich über die kleinsten Dinge freuen kannst: All das hebt dich von anderen ab. Deine Augen, deine Gewohnheiten, deine Art zu sprechen und deine Stimme werde ich nie vergessen. Auch nach Jahren werden sie tief in meinem Herzen bleiben.',
+'Du verdienst jemanden, der noch besser ist als ich. Wer auch immer dein Lebenspartner wird, hat den größten Gewinn im Leben gemacht. Daran habe ich keinen Zweifel.',
+'Für dein Studium und deinen Lebensweg wünsche ich dir von Herzen alles Gute. Mögen deine Träume wahr werden und dein Herz immer voller Freude sein. Du hast es verdient.'],
+end:'Danke für alles.',thx:'Danke'},
+tr:{sub:'Son sayfa',op:'Açmak için dokun',t:['Eylül · Bakışlar','Cuma · Dondurma','Altın','Hak Etmek','Dilekler'],
+p:['Ezoza, bu sözleri yazmak benim için kolay değil, ama onları içimde tutmayı da doğru bulmadım.',
+'Bana çok unutulmaz anılar verdin. Bu anılar hayatımda çok değerli bir yer tutuyor. Hayatımda birçok insanla tanıştım, ama seninle geçen günler başkaydı. Çok iyi bir çifttik. Karakterlerimiz o kadar birbirine benziyordu ki, bazen tek kelime etmeden birbirimizi anlıyorduk.',
+'Sen gerçekten altın gibi bir kızdın, Ezoza. Şefkatin, samimiyetin, en küçük şeylere sevinebilmen, hepsi seni diğerlerinden ayırıyor. Gözlerini, alışkanlıklarını, konuşma tarzını ve sesini asla unutmayacağım. Yıllar geçse bile hepsi kalbimin derinliklerinde yerinde duracak.',
+'Benden daha iyisini hak ediyorsun. Kimin hayat arkadaşı olursan, o kişi hayatta en büyük kazancı elde etmiş olur, buna eminim.',
+'Eğitim yolunda da hayat yolunda da sana içtenlikle başarılar diliyorum. Hayallerin gerçek olsun, kalbin hep sevinçle dolsun. Sen buna layıksın.'],
+end:'Her şey için teşekkür ederim.',thx:'Teşekkür ederim'}};
+let L;const $=s=>document.querySelector(s),B=$('#b'),R=['I','II','III','IV','V'];
+function go(l){L=T[l];if(MUSIC&&(!au||au.paused))mus();document.documentElement.lang=l;$('#L').classList.remove('on');B.classList.add('on');
+B.innerHTML=`<div class="bk" id="ck"><div>${L.sub}</div><h1>Ezoza</h1><div>❦</div><small>${L.op}</small></div>`;$('#ck').onclick=()=>pg(0)}
+function pg(n){if(n>5)return fin();const c=n<5;
+B.innerHTML=`<div class="pg"><small>${c?'· '+R[n]+' ·':''}</small>${c?`<h3>${L.t[n]}</h3><p>${L.p[n]}</p>`:`<p class="e">${L.end}</p>`}<div class="nv"><button ${n?'':'disabled'} onclick="pg(${n-1})" aria-label="back">‹</button><span>${n+1} / 6</span><button onclick="pg(${n+1})" aria-label="next">›</button></div></div>`}
+function fin(){B.innerHTML=`<div class="bk" style="cursor:default"><h1>${L.thx}</h1><div>❦</div></div>`}
+const c=$('#pt'),x=c.getContext('2d');let W,H;const A=[];function rs(){W=c.width=innerWidth;H=c.height=innerHeight}rs();addEventListener('resize',rs);
+for(let k=0;k<26;k++)A.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,s:2+Math.random()*3,v:.15+Math.random()*.3,d:Math.random()*6});
+(function f(t){x.clearRect(0,0,W,H);A.forEach(a=>{a.y+=a.v;a.x+=Math.sin(t/2000+a.d)*.3;if(a.y>H+10){a.y=-10;a.x=Math.random()*W}x.fillStyle='rgba(150,30,45,.33)';x.beginPath();x.ellipse(a.x,a.y,a.s,a.s*1.6,a.d+t/3000,0,7);x.fill()});requestAnimationFrame(f)})(0);
+let ac,mi,au;function mus(){if(MUSIC){au=au||Object.assign(new Audio(MUSIC),{loop:true,volume:.6});if(au.paused){au.play().catch(()=>{});$('#m').style.opacity=1}else{au.pause();$('#m').style.opacity=.5}return}if(mi){clearInterval(mi);mi=0;$('#m').style.opacity=.5;return}
+try{ac=ac||new AudioContext()}catch(e){return}$('#m').style.opacity=1;const n=[220,262,330,392,330,262,247,196];let i=0;
+mi=setInterval(()=>{const o=ac.createOscillator(),g=ac.createGain(),t=ac.currentTime;o.type='triangle';o.frequency.value=n[i++%8];o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.07,t+.08);g.gain.exponentialRampToValueAtTime(.0001,t+2.8);o.start();o.stop(t+3)},1500)}
+$('#m').style.opacity=.5;
+</script></body></html>
